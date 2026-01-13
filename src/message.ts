@@ -31,24 +31,24 @@ export function buildDailyMessage(
   return (
     "**Deep Work Today**\n\n" +
     "**A**  \n" +
-    `🟢 Starts <t:${a.startTs}:t>  \n` +
-    `🔴 Ends <t:${a.endTs}:t>  \n` +
+    `Starts <t:${a.startTs}:t>  \n` +
+    `Ends <t:${a.endTs}:t>  \n` +
     `${lockedBlocks?.has("A") ? "🔒 Locked" : `🔒 Locks <t:${a.lockTs}:R>`}\n\n` +
     `${EMOJIS.A_DW50} Deep Work 50  \n` +
     `${aDw50}\n\n` +
     `${EMOJIS.A_DW100} Deep Work 100  \n` +
     `${aDw100}\n\n` +
     "**B**  \n" +
-    `🟢 Starts <t:${b.startTs}:t>  \n` +
-    `🔴 Ends <t:${b.endTs}:t>  \n` +
+    `Starts <t:${b.startTs}:t>  \n` +
+    `Ends <t:${b.endTs}:t>  \n` +
     `${lockedBlocks?.has("B") ? "🔒 Locked" : `🔒 Locks <t:${b.lockTs}:R>`}\n\n` +
     `${EMOJIS.B_DW50} Deep Work 50  \n` +
     `${bDw50}\n\n` +
     `${EMOJIS.B_DW100} Deep Work 100  \n` +
     `${bDw100}\n\n` +
     "**C**  \n" +
-    `🟢 Starts <t:${c.startTs}:t>  \n` +
-    `🔴 Ends <t:${c.endTs}:t>  \n` +
+    `Starts <t:${c.startTs}:t>  \n` +
+    `Ends <t:${c.endTs}:t>  \n` +
     `${lockedBlocks?.has("C") ? "🔒 Locked" : `🔒 Locks <t:${c.lockTs}:R>`}\n` +
     `\n${EMOJIS.C_DW50} Deep Work 50  \n` +
     `${cDw50}\n\n` +

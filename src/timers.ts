@@ -49,7 +49,7 @@ export async function sendTimerMarkers(
     const dw50Channel = await guild.channels.fetch(CHANNELS.deepWork50Voice);
     if (dw50Channel && dw50Channel.isTextBased()) {
       await (dw50Channel as TextChannel).send(
-        `▶ Deep Work 50 second sprint <@&${ROLES.deepWork50}>`
+        `▶ Deep Work 50 minutes sprint <@&${ROLES.deepWork50}>`
       );
     }
   }

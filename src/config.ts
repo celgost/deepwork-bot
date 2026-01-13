@@ -17,7 +17,7 @@ export const ADMIN_IDS: string[] = ["1394665168428073155"];
 export const ADMIN_ROLE_ID = "1447991617788051507" as const;
 export const TESTER_IDS: string[] = ["1394665168428073155", "1224162929134407691"];
 
-export const TEST_MODE = true as const;
+export const TEST_MODE = false as const;
 
 export const BLOCKS = {
   A: {
