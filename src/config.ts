@@ -47,25 +47,25 @@ export const BLOCKS = {
 } as const;
 
 export const EMOJIS = {
-  D_DW50: "1️⃣",
-  D_DW100: "2️⃣",
-  A_DW50: "3️⃣",
-  A_DW100: "4️⃣",
-  B_DW50: "5️⃣",
-  B_DW100: "6️⃣",
-  C_DW50: "7️⃣",
-  C_DW100: "8️⃣",
+  A_DW50: "1️⃣",
+  A_DW100: "2️⃣",
+  B_DW50: "3️⃣",
+  B_DW100: "4️⃣",
+  C_DW50: "5️⃣",
+  C_DW100: "6️⃣",
+  D_DW50: "7️⃣",
+  D_DW100: "8️⃣",
 } as const;
 
 export const REACTION_MAP = {
-  "1️⃣": { block: "D", mode: "DW50" },
-  "2️⃣": { block: "D", mode: "DW100" },
-  "3️⃣": { block: "A", mode: "DW50" },
-  "4️⃣": { block: "A", mode: "DW100" },
-  "5️⃣": { block: "B", mode: "DW50" },
-  "6️⃣": { block: "B", mode: "DW100" },
-  "7️⃣": { block: "C", mode: "DW50" },
-  "8️⃣": { block: "C", mode: "DW100" },
+  "1️⃣": { block: "A", mode: "DW50" },
+  "2️⃣": { block: "A", mode: "DW100" },
+  "3️⃣": { block: "B", mode: "DW50" },
+  "4️⃣": { block: "B", mode: "DW100" },
+  "5️⃣": { block: "C", mode: "DW50" },
+  "6️⃣": { block: "C", mode: "DW100" },
+  "7️⃣": { block: "D", mode: "DW50" },
+  "8️⃣": { block: "D", mode: "DW100" },
 } as const;
 
 export type BlockKey = keyof typeof BLOCKS;

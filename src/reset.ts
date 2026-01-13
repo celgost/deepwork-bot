@@ -25,14 +25,14 @@ async function unpinExistingDailyMessage(channel: TextChannel): Promise<void> {
 
 async function addDailyReactions(message: Message): Promise<void> {
   const reactionOrder = [
-    EMOJIS.D_DW50,
-    EMOJIS.D_DW100,
     EMOJIS.A_DW50,
     EMOJIS.A_DW100,
     EMOJIS.B_DW50,
     EMOJIS.B_DW100,
     EMOJIS.C_DW50,
     EMOJIS.C_DW100,
+    EMOJIS.D_DW50,
+    EMOJIS.D_DW100,
   ];
 
   for (const emoji of reactionOrder) {

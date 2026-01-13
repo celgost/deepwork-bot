@@ -34,7 +34,7 @@ export async function buildAttendeeMap(guild: Guild): Promise<AttendeeMap> {
     [EMOJIS.C_DW100]: [],
   };
 
-  const blocks: Array<"A" | "B" | "C" | "D"> = ["D", "A", "B", "C"];
+  const blocks: Array<"A" | "B" | "C" | "D"> = ["A", "B", "C", "D"];
   for (const block of blocks) {
     for (const [userId, mode] of signupState[block]) {
       const name = await formatMemberName(guild, userId);

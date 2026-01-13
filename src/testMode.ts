@@ -81,14 +81,14 @@ async function fetchDailyMessageForGuild(
 
 async function addDailyReactions(message: Message): Promise<void> {
   const reactionOrder = [
-    EMOJIS.D_DW50,
-    EMOJIS.D_DW100,
     EMOJIS.A_DW50,
     EMOJIS.A_DW100,
     EMOJIS.B_DW50,
     EMOJIS.B_DW100,
     EMOJIS.C_DW50,
     EMOJIS.C_DW100,
+    EMOJIS.D_DW50,
+    EMOJIS.D_DW100,
   ];
 
   for (const emoji of reactionOrder) {
@@ -140,7 +140,7 @@ async function syncFromReactionsForGuild(
   if (!daily) return;
   const full = await daily.fetch();
 
-  const blocks: BlockKey[] = ["D", "A", "B", "C"];
+  const blocks: BlockKey[] = ["A", "B", "C", "D"];
   for (const block of blocks) {
     const dw50Emoji =
       block === "D"
@@ -197,10 +197,10 @@ function formatState(): string {
     "**Test Status**\n" +
     `Daily message ID: ${getDailyMessageId() ?? "unknown"}\n` +
     `Locked: ${Array.from(lockedBlocks).join(", ") || "none"}\n` +
-    `${blockSummary("D")}\n` +
     `${blockSummary("A")}\n` +
     `${blockSummary("B")}\n` +
-    `${blockSummary("C")}`
+    `${blockSummary("C")}\n` +
+    `${blockSummary("D")}`
   );
 }
 

@@ -17,30 +17,22 @@ export function buildDailyMessage(
 ): string {
   const times = getDailyBlockTimestamps(date);
 
-  const dDw50 = formatNames(attendees?.[EMOJIS.D_DW50]);
-  const dDw100 = formatNames(attendees?.[EMOJIS.D_DW100]);
   const aDw50 = formatNames(attendees?.[EMOJIS.A_DW50]);
   const aDw100 = formatNames(attendees?.[EMOJIS.A_DW100]);
   const bDw50 = formatNames(attendees?.[EMOJIS.B_DW50]);
   const bDw100 = formatNames(attendees?.[EMOJIS.B_DW100]);
   const cDw50 = formatNames(attendees?.[EMOJIS.C_DW50]);
   const cDw100 = formatNames(attendees?.[EMOJIS.C_DW100]);
+  const dDw50 = formatNames(attendees?.[EMOJIS.D_DW50]);
+  const dDw100 = formatNames(attendees?.[EMOJIS.D_DW100]);
 
-  const d = times.D;
   const a = times.A;
   const b = times.B;
   const c = times.C;
+  const d = times.D;
 
   return (
     "**Deep Work Today**\n\n" +
-    "**D**  \n" +
-    `🟢 Starts <t:${d.startTs}:t>  \n` +
-    `🔴 Ends <t:${d.endTs}:t>  \n` +
-    `${lockedBlocks?.has("D") ? "🔒 Locked" : `🔒 Locks <t:${d.lockTs}:R>`}\n\n` +
-    `${EMOJIS.D_DW50} Deep Work 50  \n` +
-    `${dDw50}\n\n` +
-    `${EMOJIS.D_DW100} Deep Work 100  \n` +
-    `${dDw100}\n\n` +
     "**A**  \n" +
     `Starts <t:${a.startTs}:t>  \n` +
     `Ends <t:${a.endTs}:t>  \n` +
@@ -65,6 +57,14 @@ export function buildDailyMessage(
     `${cDw50}\n\n` +
     `${EMOJIS.C_DW100} Deep Work 100\n` +
     `${cDw100}\n\n` +
+    "**D**  \n" +
+    `Starts <t:${d.startTs}:t>  \n` +
+    `Ends <t:${d.endTs}:t>  \n` +
+    `${lockedBlocks?.has("D") ? "🔒 Locked" : `🔒 Locks <t:${d.lockTs}:R>`}\n\n` +
+    `${EMOJIS.D_DW50} Deep Work 50  \n` +
+    `${dDw50}\n\n` +
+    `${EMOJIS.D_DW100} Deep Work 100  \n` +
+    `${dDw100}\n\n` +
     "React to join. You can change or cancel anytime before each block locks."
   );
 }
