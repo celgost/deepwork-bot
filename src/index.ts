@@ -9,7 +9,8 @@ import { scheduleTimerMarkers } from "./timers.js";
 import { scheduleBlockEnds } from "./blockEnd.js";
 import { initStatePersistence } from "./state.js";
 import { runStartupRecovery } from "./recovery.js";
-import { handleTestCommands, handleTestInteraction, registerTestCommands } from "./testMode.js";
+import { handleAdminInteraction, registerAllCommands } from "./adminCommands.js";
+import { handleTestCommands, handleTestInteraction } from "./testMode.js";
 import { TEST_MODE } from "./config.js";
 
 const token = process.env.DISCORD_TOKEN;
@@ -25,6 +26,7 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildMessageReactions,
+    GatewayIntentBits.MessageContent,
   ],
   partials: [Partials.Message, Partials.Reaction, Partials.User],
 });
@@ -36,12 +38,7 @@ client.once("clientReady", (c) => {
     .then(() => {
       return runStartupRecovery(client, guildId);
     })
-    .then(() => {
-      if (TEST_MODE) {
-        return registerTestCommands(c.user.id, guildId);
-      }
-      return undefined;
-    })
+    .then(() => registerAllCommands(c.user.id, guildId, TEST_MODE))
     .then(() => {
       if (!TEST_MODE) {
         scheduleBlockLocks(client, guildId);
@@ -75,6 +72,9 @@ client.on("messageCreate", (message) => {
 
 client.on("interactionCreate", (interaction) => {
   if (!interaction.isChatInputCommand()) return;
+  handleAdminInteraction(interaction).catch((err) => {
+    console.error("Admin interaction handler failed:", err);
+  });
   handleTestInteraction(interaction).catch((err) => {
     console.error("Test interaction handler failed:", err);
   });
