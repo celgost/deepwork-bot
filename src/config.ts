@@ -20,26 +20,26 @@ export const TESTER_IDS: string[] = ["1394665168428073155", "1224162929134407691
 export const TEST_MODE = false as const;
 
 export const BLOCKS = {
-  D: {
-    label: "D",
+  A: {
+    label: "A",
     start: "10:00",
     end: "12:00",
     lockMinutesBefore: 5,
   },
-  A: {
-    label: "A",
+  B: {
+    label: "B",
     start: "14:00",
     end: "16:00",
     lockMinutesBefore: 5,
   },
-  B: {
-    label: "B",
+  C: {
+    label: "C",
     start: "18:00",
     end: "20:00",
     lockMinutesBefore: 5,
   },
-  C: {
-    label: "C",
+  D: {
+    label: "D",
     start: "22:00",
     end: "00:00",
     lockMinutesBefore: 5,
