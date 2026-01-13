@@ -1,6 +1,6 @@
 # **Deep Work Bot Spec
 
-Discord bot that runs **three daily 2-hour deep work blocks** using **one pinned daily message**, **reaction-based signup**, **temporary roles**, and **locked permanent voice channels**.
+Discord bot that runs **four daily 2-hour deep work blocks** using **one pinned daily message**, **reaction-based signup**, **temporary roles**, and **locked permanent voice channels**.
 
 ---
 
@@ -32,9 +32,10 @@ Voice:
 
 |Block|Time|
 |---|---|
-|A|14:00–16:00|
-|B|18:00–20:00|
-|C|22:00–00:00|
+|A|10:00–12:00|
+|B|14:00–16:00|
+|C|18:00–20:00|
+|D|22:00–00:00|
 
 Each block has two modes:
 
@@ -52,9 +53,9 @@ Example:
 > **Deep Work Today**
 > 
 > **A**  
-   🟢 Starts <t:1700017200:t>  
-   🔴 Ends <t:1700024400:t>  
-   🔒 Locks <t:1700016900:R>
+> 🟢 Starts <t:1700017200:t>  
+> 🔴 Ends <t:1700024400:t>  
+> 🔒 Locks <t:1700016900:R>
 > 
 > 1️⃣ Deep Work 50  
 > Brice (celgost), Alex (alex)
@@ -64,8 +65,8 @@ Example:
 > 
 > **B**  
 > 🟢 Starts <t:1700017200:t>  
-   🔴 Ends <t:1700024400:t>  
-   🔒 Locks <t:1700016900:R>
+> 🔴 Ends <t:1700024400:t>  
+> 🔒 Locks <t:1700016900:R>
 > 
 > 3️⃣ Deep Work 50  
 > No one yet
@@ -74,13 +75,25 @@ Example:
 > No one yet
 > 
 > **C** 
-   🟢 Starts <t:1700017200:t>  
-   🔴 Ends <t:1700024400:t>  
-   🔒 Locks <t:1700016900:R>
+> 🟢 Starts <t:1700017200:t>  
+> 🔴 Ends <t:1700024400:t>  
+> 🔒 Locks <t:1700016900:R>
+> 
 > 5️⃣ Deep Work 50  
 > Mei (mei)
 > 
 > 6️⃣ Deep Work 100
+> No one yet
+> 
+> **D** 
+> 🟢 Starts <t:1700017200:t>  
+> 🔴 Ends <t:1700024400:t>  
+> 🔒 Locks <t:1700016900:R>
+> 
+> 7️⃣ Deep Work 50  
+> No one yet
+> 
+> 8️⃣ Deep Work 100
 > No one yet
 > 
 > React to join. You can change or cancel anytime before each block locks.
@@ -107,6 +120,8 @@ Live updated as reactions change.
 |4️⃣|B|DW100|
 |5️⃣|C|DW50|
 |6️⃣|C|DW100|
+|7️⃣|D|DW50|
+|8️⃣|D|DW100|
 
 Users can have only **one reaction per block**.
 

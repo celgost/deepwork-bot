@@ -19,7 +19,7 @@ function getEmojiFor(block: "A" | "B" | "C" | "D", mode: ModeKey): string {
 
 async function formatMemberName(guild: Guild, userId: string): Promise<string> {
   const member = await guild.members.fetch(userId);
-  return `${member.displayName} (${member.user.username})`;
+  return `<@${member.id}>`;
 }
 
 export async function buildAttendeeMap(guild: Guild): Promise<AttendeeMap> {
