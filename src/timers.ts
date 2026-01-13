@@ -40,7 +40,7 @@ export async function sendTimerMarkers(
     const dw50Channel = await guild.channels.fetch(CHANNELS.deepWork50Voice);
     if (dw50Channel && dw50Channel.isTextBased()) {
       await (dw50Channel as TextChannel).send(
-        `⏸ Deep Work 50 break (10 minutes) <@&${ROLES.deepWork50}>`
+        `⏸ Deep Work timer paused (10 minutes break) <@&${ROLES.deepWork50}>`
       );
     }
   }
@@ -58,7 +58,13 @@ export async function sendTimerMarkers(
     const dw100Channel = await guild.channels.fetch(CHANNELS.deepWork100Voice);
     if (dw100Channel && dw100Channel.isTextBased()) {
       await (dw100Channel as TextChannel).send(
-        `⏸ Deep Work 100 break (20 minutes) <@&${ROLES.deepWork100}>`
+        `⏸ Deep Work timer paused (20 minutes break) <@&${ROLES.deepWork100}>`
+      );
+    }
+    const dw50Channel = await guild.channels.fetch(CHANNELS.deepWork50Voice);
+    if (dw50Channel && dw50Channel.isTextBased()) {
+      await (dw50Channel as TextChannel).send(
+        `⏸ Deep Work timer paused (10 minutes break) <@&${ROLES.deepWork50}>`
       );
     }
   }

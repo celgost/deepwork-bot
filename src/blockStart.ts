@@ -27,9 +27,9 @@ export async function sendBlockStartMessages(
   const textChannel = await guild.channels.fetch(CHANNELS.deepWorkText);
   if (textChannel && textChannel.type === ChannelType.GuildText) {
     await (textChannel as TextChannel).send(
-      `🧠 Block ${block} started\n\n` +
-        "Deep Work 50: 50 → 10 → 50  \n" +
-        "Deep Work 100: 100 → 20"
+      `Block ${block} started\n\n` +
+        "Deep Work 50: Work 50 minutes → Pause 10 minutes → Work 50 minutes → Pause 10 minutes\n" +
+        "Deep Work 100: Work 100 minutes → Pause 20 minutes"
     );
   }
 
@@ -38,7 +38,8 @@ export async function sendBlockStartMessages(
     await (dw50Channel as TextChannel).send(
       `<@&${ROLES.deepWork50}>\n` +
         "What is your todolist for this session?\n" +
-        "Write it here concisely."
+        "Write it here concisely.\n" +
+        "▶ 50 minutes Deep Work timer has started"
     );
   }
 
@@ -47,7 +48,8 @@ export async function sendBlockStartMessages(
     await (dw100Channel as TextChannel).send(
       `<@&${ROLES.deepWork100}>\n` +
         "What is your todolist for this session?\n" +
-        "Write it here concisely."
+        "Write it here concisely." +
+        "▶ 100 minutes Deep Work timer has started"
     );
   }
 
