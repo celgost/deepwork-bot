@@ -69,7 +69,12 @@ export function emptyPersistedState(): PersistedState {
   const emptyBlock = {} as Record<string, "DW50" | "DW100">;
   return {
     date: todayKey(),
-    signups: { A: { ...emptyBlock }, B: { ...emptyBlock }, C: { ...emptyBlock } },
+    signups: {
+      D: { ...emptyBlock },
+      A: { ...emptyBlock },
+      B: { ...emptyBlock },
+      C: { ...emptyBlock },
+    },
     locked: [] as BlockKey[],
   };
 }

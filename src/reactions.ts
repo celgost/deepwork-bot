@@ -9,6 +9,7 @@ import { updateDailyMessage } from "./attendees.js";
 import { clearSignup, isBlockLocked, setSignup } from "./signup.js";
 
 const BLOCK_EMOJIS = {
+  D: [EMOJIS.D_DW50, EMOJIS.D_DW100],
   A: [EMOJIS.A_DW50, EMOJIS.A_DW100],
   B: [EMOJIS.B_DW50, EMOJIS.B_DW100],
   C: [EMOJIS.C_DW50, EMOJIS.C_DW100],

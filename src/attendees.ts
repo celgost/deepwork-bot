@@ -6,7 +6,9 @@ import { lockedBlocks, signupState } from "./signup.js";
 
 type AttendeeMap = Record<string, string[]>;
 
-function getEmojiFor(block: "A" | "B" | "C", mode: ModeKey): string {
+function getEmojiFor(block: "A" | "B" | "C" | "D", mode: ModeKey): string {
+  if (block === "D" && mode === "DW50") return EMOJIS.D_DW50;
+  if (block === "D" && mode === "DW100") return EMOJIS.D_DW100;
   if (block === "A" && mode === "DW50") return EMOJIS.A_DW50;
   if (block === "A" && mode === "DW100") return EMOJIS.A_DW100;
   if (block === "B" && mode === "DW50") return EMOJIS.B_DW50;
@@ -22,6 +24,8 @@ async function formatMemberName(guild: Guild, userId: string): Promise<string> {
 
 export async function buildAttendeeMap(guild: Guild): Promise<AttendeeMap> {
   const attendees: AttendeeMap = {
+    [EMOJIS.D_DW50]: [],
+    [EMOJIS.D_DW100]: [],
     [EMOJIS.A_DW50]: [],
     [EMOJIS.A_DW100]: [],
     [EMOJIS.B_DW50]: [],
@@ -30,7 +34,7 @@ export async function buildAttendeeMap(guild: Guild): Promise<AttendeeMap> {
     [EMOJIS.C_DW100]: [],
   };
 
-  const blocks: Array<"A" | "B" | "C"> = ["A", "B", "C"];
+  const blocks: Array<"A" | "B" | "C" | "D"> = ["D", "A", "B", "C"];
   for (const block of blocks) {
     for (const [userId, mode] of signupState[block]) {
       const name = await formatMemberName(guild, userId);

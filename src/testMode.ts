@@ -81,6 +81,8 @@ async function fetchDailyMessageForGuild(
 
 async function addDailyReactions(message: Message): Promise<void> {
   const reactionOrder = [
+    EMOJIS.D_DW50,
+    EMOJIS.D_DW100,
     EMOJIS.A_DW50,
     EMOJIS.A_DW100,
     EMOJIS.B_DW50,
@@ -138,20 +140,24 @@ async function syncFromReactionsForGuild(
   if (!daily) return;
   const full = await daily.fetch();
 
-  const blocks: BlockKey[] = ["A", "B", "C"];
+  const blocks: BlockKey[] = ["D", "A", "B", "C"];
   for (const block of blocks) {
     const dw50Emoji =
-      block === "A"
-        ? EMOJIS.A_DW50
-        : block === "B"
-          ? EMOJIS.B_DW50
-          : EMOJIS.C_DW50;
+      block === "D"
+        ? EMOJIS.D_DW50
+        : block === "A"
+          ? EMOJIS.A_DW50
+          : block === "B"
+            ? EMOJIS.B_DW50
+            : EMOJIS.C_DW50;
     const dw100Emoji =
-      block === "A"
-        ? EMOJIS.A_DW100
-        : block === "B"
-          ? EMOJIS.B_DW100
-          : EMOJIS.C_DW100;
+      block === "D"
+        ? EMOJIS.D_DW100
+        : block === "A"
+          ? EMOJIS.A_DW100
+          : block === "B"
+            ? EMOJIS.B_DW100
+            : EMOJIS.C_DW100;
 
     const dw50Reaction = full.reactions.cache.get(dw50Emoji);
     const dw100Reaction = full.reactions.cache.get(dw100Emoji);
@@ -191,6 +197,7 @@ function formatState(): string {
     "**Test Status**\n" +
     `Daily message ID: ${getDailyMessageId() ?? "unknown"}\n` +
     `Locked: ${Array.from(lockedBlocks).join(", ") || "none"}\n` +
+    `${blockSummary("D")}\n` +
     `${blockSummary("A")}\n` +
     `${blockSummary("B")}\n` +
     `${blockSummary("C")}`
@@ -238,8 +245,8 @@ export async function handleTestCommands(message: Message): Promise<boolean> {
 
     if (command === "test_lock") {
       const block = (args[0] || "").toUpperCase() as BlockKey;
-      if (!block || !["A", "B", "C"].includes(block)) {
-        await message.reply("Usage: !test_lock <A|B|C>");
+      if (!block || !["D", "A", "B", "C"].includes(block)) {
+        await message.reply("Usage: !test_lock <D|A|B|C>");
         return true;
       }
       await lockBlockNow(message.client, message.guildId ?? "", block, {
@@ -251,8 +258,8 @@ export async function handleTestCommands(message: Message): Promise<boolean> {
 
     if (command === "test_start") {
       const block = (args[0] || "").toUpperCase() as BlockKey;
-      if (!block || !["A", "B", "C"].includes(block)) {
-        await message.reply("Usage: !test_start <A|B|C>");
+      if (!block || !["D", "A", "B", "C"].includes(block)) {
+        await message.reply("Usage: !test_start <D|A|B|C>");
         return true;
       }
       await sendBlockStartMessages(message.client, message.guildId ?? "", block, {
@@ -265,12 +272,12 @@ export async function handleTestCommands(message: Message): Promise<boolean> {
     if (command === "test_timer") {
       const block = (args[0] || "").toUpperCase() as BlockKey;
       const marker = Number(args[1]);
-      if (!block || !["A", "B", "C"].includes(block)) {
-        await message.reply("Usage: !test_timer <A|B|C> <50|60|100>");
+      if (!block || !["D", "A", "B", "C"].includes(block)) {
+        await message.reply("Usage: !test_timer <D|A|B|C> <50|60|100>");
         return true;
       }
       if (![50, 60, 100].includes(marker)) {
-        await message.reply("Usage: !test_timer <A|B|C> <50|60|100>");
+        await message.reply("Usage: !test_timer <D|A|B|C> <50|60|100>");
         return true;
       }
       await sendTimerMarkers(
@@ -286,8 +293,8 @@ export async function handleTestCommands(message: Message): Promise<boolean> {
 
     if (command === "test_run_timers") {
       const block = (args[0] || "").toUpperCase() as BlockKey;
-      if (!block || !["A", "B", "C"].includes(block)) {
-        await message.reply("Usage: !test_run_timers <A|B|C>");
+      if (!block || !["D", "A", "B", "C"].includes(block)) {
+        await message.reply("Usage: !test_run_timers <D|A|B|C>");
         return true;
       }
       for (const marker of [50, 60, 100] as const) {
@@ -305,8 +312,8 @@ export async function handleTestCommands(message: Message): Promise<boolean> {
 
     if (command === "test_end") {
       const block = (args[0] || "").toUpperCase() as BlockKey;
-      if (!block || !["A", "B", "C"].includes(block)) {
-        await message.reply("Usage: !test_end <A|B|C>");
+      if (!block || !["D", "A", "B", "C"].includes(block)) {
+        await message.reply("Usage: !test_end <D|A|B|C>");
         return true;
       }
       await endBlockNow(message.client, message.guildId ?? "", block, {
@@ -350,6 +357,7 @@ export function buildTestCommands(): Array<SlashCommandBuilder | SlashCommandOpt
           .setDescription("Block A, B, or C")
           .setRequired(true)
           .addChoices(
+            { name: "D", value: "D" },
             { name: "A", value: "A" },
             { name: "B", value: "B" },
             { name: "C", value: "C" }
@@ -364,6 +372,7 @@ export function buildTestCommands(): Array<SlashCommandBuilder | SlashCommandOpt
           .setDescription("Block A, B, or C")
           .setRequired(true)
           .addChoices(
+            { name: "D", value: "D" },
             { name: "A", value: "A" },
             { name: "B", value: "B" },
             { name: "C", value: "C" }
@@ -378,6 +387,7 @@ export function buildTestCommands(): Array<SlashCommandBuilder | SlashCommandOpt
           .setDescription("Block A, B, or C")
           .setRequired(true)
           .addChoices(
+            { name: "D", value: "D" },
             { name: "A", value: "A" },
             { name: "B", value: "B" },
             { name: "C", value: "C" }
@@ -403,6 +413,7 @@ export function buildTestCommands(): Array<SlashCommandBuilder | SlashCommandOpt
           .setDescription("Block A, B, or C")
           .setRequired(true)
           .addChoices(
+            { name: "D", value: "D" },
             { name: "A", value: "A" },
             { name: "B", value: "B" },
             { name: "C", value: "C" }
@@ -417,6 +428,7 @@ export function buildTestCommands(): Array<SlashCommandBuilder | SlashCommandOpt
           .setDescription("Block A, B, or C")
           .setRequired(true)
           .addChoices(
+            { name: "D", value: "D" },
             { name: "A", value: "A" },
             { name: "B", value: "B" },
             { name: "C", value: "C" }
@@ -486,7 +498,7 @@ export async function handleTestInteraction(
 
     if (interaction.commandName === "test_timer") {
       if (!block || !marker || ![50, 60, 100].includes(marker)) {
-        await interaction.editReply("Usage: /test_timer block=<A|B|C> t=<50|60|100>");
+        await interaction.editReply("Usage: /test_timer block=<D|A|B|C> t=<50|60|100>");
         return true;
       }
       await sendTimerMarkers(interaction.client, interaction.guildId, block, marker as 50 | 60 | 100, { force: true });

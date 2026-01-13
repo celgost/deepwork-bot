@@ -22,6 +22,7 @@ import { markExecuted, shouldRun } from "./state.js";
 const PIN_MARKER = "**Deep Work Today**";
 
 const BLOCK_EMOJIS: Record<BlockKey, [string, string]> = {
+  D: [EMOJIS.D_DW50, EMOJIS.D_DW100],
   A: [EMOJIS.A_DW50, EMOJIS.A_DW100],
   B: [EMOJIS.B_DW50, EMOJIS.B_DW100],
   C: [EMOJIS.C_DW50, EMOJIS.C_DW100],

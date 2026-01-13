@@ -11,6 +11,7 @@ export type PersistedState = {
 };
 
 export const signupState: SignupState = {
+  D: new Map(),
   A: new Map(),
   B: new Map(),
   C: new Map(),
@@ -59,6 +60,7 @@ export function isBlockLocked(block: BlockKey): boolean {
 }
 
 export function resetSignupState(): void {
+  signupState.D.clear();
   signupState.A.clear();
   signupState.B.clear();
   signupState.C.clear();
@@ -72,6 +74,7 @@ function todayKey(): string {
 
 export function getSnapshot(): PersistedState {
   const signups: PersistedState["signups"] = {
+    D: Object.fromEntries(signupState.D),
     A: Object.fromEntries(signupState.A),
     B: Object.fromEntries(signupState.B),
     C: Object.fromEntries(signupState.C),
@@ -85,9 +88,13 @@ export function getSnapshot(): PersistedState {
 }
 
 export function applySnapshot(snapshot: PersistedState): void {
+  signupState.D.clear();
   signupState.A.clear();
   signupState.B.clear();
   signupState.C.clear();
+  for (const [userId, mode] of Object.entries(snapshot.signups.D ?? {})) {
+    signupState.D.set(userId, mode);
+  }
   for (const [userId, mode] of Object.entries(snapshot.signups.A)) {
     signupState.A.set(userId, mode);
   }

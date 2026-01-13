@@ -60,7 +60,16 @@ async function postDailyForGuild(interaction: ChatInputCommandInteraction): Prom
   if (!channel || !channel.isTextBased()) return;
   const daily = await channel.send(buildDailyMessage());
   await daily.pin();
-  for (const emoji of ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣"] as const) {
+  for (const emoji of [
+    "1️⃣",
+    "2️⃣",
+    "3️⃣",
+    "4️⃣",
+    "5️⃣",
+    "6️⃣",
+    "7️⃣",
+    "8️⃣",
+  ] as const) {
     if (!daily.reactions.cache.get(emoji)) {
       await daily.react(emoji);
     }
