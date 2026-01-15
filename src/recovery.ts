@@ -21,7 +21,7 @@ export async function runStartupRecovery(
     }
 
     if (now >= endTs) {
-      await endBlockNow(client, guildId, block, { suppressMessage: true });
+      await endBlockNow(client, guildId, block);
     }
   }
 }

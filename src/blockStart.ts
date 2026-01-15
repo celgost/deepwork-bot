@@ -1,5 +1,5 @@
 import cron from "node-cron";
-import { ChannelType, Client, TextChannel } from "discord.js";
+import { Client, TextChannel } from "discord.js";
 import { BLOCKS, CHANNELS, ROLES, TIMEZONE, type BlockKey } from "./config.js";
 import { markExecuted, shouldRun } from "./state.js";
 
@@ -24,29 +24,17 @@ export async function sendBlockStartMessages(
 
   const guild = await client.guilds.fetch(guildId);
 
-  const textChannel = await guild.channels.fetch(CHANNELS.deepWorkText);
-  if (textChannel && textChannel.type === ChannelType.GuildText) {
-    await (textChannel as TextChannel).send(
+  const dwChannel = await guild.channels.fetch(CHANNELS.deepWork50Voice);
+  if (dwChannel && dwChannel.isTextBased()) {
+    await (dwChannel as TextChannel).send(
       `Block ${block} started\n\n` +
-        `<@&${ROLES.deepWork50}>` + ": Work 50 minutes → Pause 10 minutes → Work 50 minutes → Pause 10 minutes\n" +
-        `<@&${ROLES.deepWork100}>`+ ": Work 100 minutes → Pause 20 minutes"
-    );
-  }
-
-  const dw50Channel = await guild.channels.fetch(CHANNELS.deepWork50Voice);
-  if (dw50Channel && dw50Channel.isTextBased()) {
-    await (dw50Channel as TextChannel).send(
-      `<@&${ROLES.deepWork50}>\n` +
+        `<@&${ROLES.deepWork50}>: Work 50 minutes → Pause 10 minutes → Work 50 minutes → Pause 10 minutes\n` +
+        `<@&${ROLES.deepWork100}>: Work 100 minutes → Pause 20 minutes\n\n` +
+        `<@&${ROLES.deepWork50}>\n` +
         "What is your todolist for this session?\n" +
         "Write it here concisely.\n" +
-        "▶ 50 minutes Deep Work timer has started"
-    );
-  }
-
-  const dw100Channel = await guild.channels.fetch(CHANNELS.deepWork100Voice);
-  if (dw100Channel && dw100Channel.isTextBased()) {
-    await (dw100Channel as TextChannel).send(
-      `<@&${ROLES.deepWork100}>\n` +
+        "▶ 50 minutes Deep Work timer has started\n\n" +
+        `<@&${ROLES.deepWork100}>\n` +
         "What is your todolist for this session?\n" +
         "Write it here concisely.\n" +
         "▶ 100 minutes Deep Work timer has started"

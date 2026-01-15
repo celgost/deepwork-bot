@@ -1,5 +1,5 @@
 import cron from "node-cron";
-import { ChannelType, Client, TextChannel } from "discord.js";
+import { Client, TextChannel } from "discord.js";
 import {
   BLOCKS,
   CHANNELS,
@@ -32,11 +32,51 @@ function cronAtTime(hhmm: string, offsetMinutes: number): string {
   return `${adjusted.minute} ${adjusted.hour} * * *`;
 }
 
+function cronAtTimeWithSeconds(
+  hhmm: string,
+  offsetMinutes: number,
+  offsetSeconds: number
+): string {
+  const { hour, minute } = parseHHMM(hhmm);
+  const baseSeconds = hour * 3600 + minute * 60;
+  const adjustedTotal = baseSeconds + offsetMinutes * 60 + offsetSeconds;
+  const wrapped = ((adjustedTotal % 86400) + 86400) % 86400;
+  const adjHour = Math.floor(wrapped / 3600);
+  const adjMinute = Math.floor((wrapped % 3600) / 60);
+  const adjSecond = wrapped % 60;
+  return `${adjSecond} ${adjMinute} ${adjHour} * * *`;
+}
+
+export async function sendEndPromptNow(
+  client: Client,
+  guildId: string,
+  block: BlockKey,
+  options?: { force?: boolean }
+): Promise<void> {
+  const jobKey = `endPrompt:${block}`;
+  if (!options?.force && !shouldRun(jobKey)) return;
+
+  const guild = await client.guilds.fetch(guildId);
+  const channel = await guild.channels.fetch(CHANNELS.deepWork50Voice);
+  if (channel && channel.isTextBased()) {
+    await (channel as TextChannel).send(
+      `Block ${block} ending in 30 seconds.\n` +
+        `Did you do what you planned?\n` +
+        `yes / partial / no\n` +
+        `<@&${ROLES.deepWork50}> <@&${ROLES.deepWork100}>`
+    );
+  }
+
+  if (!options?.force) {
+    markExecuted(jobKey);
+  }
+}
+
 export async function endBlockNow(
   client: Client,
   guildId: string,
   block: BlockKey,
-  options?: { suppressMessage?: boolean; force?: boolean }
+  options?: { force?: boolean }
 ): Promise<void> {
   const jobKey = `end:${block}`;
   if (!options?.force && !shouldRun(jobKey)) return;
@@ -64,15 +104,6 @@ export async function endBlockNow(
     }
   }
 
-  if (!options?.suppressMessage) {
-    const channel = await guild.channels.fetch(CHANNELS.deepWorkText);
-    if (channel && channel.type === ChannelType.GuildText) {
-      await (channel as TextChannel).send(
-        "Block ended.\nDid you do what you planned?\nyes / partial / no"
-      );
-    }
-  }
-
   entries.clear();
   if (!options?.force) {
     markExecuted(jobKey);
@@ -85,6 +116,17 @@ export function scheduleBlockEnds(client: Client, guildId: string): void {
   >;
 
   for (const [key, block] of entries) {
+    const promptCron = cronAtTimeWithSeconds(block.start, 119, 30);
+    cron.schedule(
+      promptCron,
+      () => {
+        sendEndPromptNow(client, guildId, key).catch((err) => {
+          console.error(`Block ${key} end prompt failed:`, err);
+        });
+      },
+      { timezone: TIMEZONE }
+    );
+
     const cronExpr = cronAtTime(block.start, 120);
     cron.schedule(
       cronExpr,

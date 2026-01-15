@@ -36,34 +36,25 @@ export async function sendTimerMarkers(
 
   const guild = await client.guilds.fetch(guildId);
 
-  if (marker === 50) {
-    const dw50Channel = await guild.channels.fetch(CHANNELS.deepWork50Voice);
-    if (dw50Channel && dw50Channel.isTextBased()) {
-      await (dw50Channel as TextChannel).send(
+  const dwChannel = await guild.channels.fetch(CHANNELS.deepWork50Voice);
+  if (dwChannel && dwChannel.isTextBased()) {
+    if (marker === 50) {
+      await (dwChannel as TextChannel).send(
         `⏸ Deep Work timer paused (10 minutes break) <@&${ROLES.deepWork50}>`
       );
     }
-  }
 
-  if (marker === 60) {
-    const dw50Channel = await guild.channels.fetch(CHANNELS.deepWork50Voice);
-    if (dw50Channel && dw50Channel.isTextBased()) {
-      await (dw50Channel as TextChannel).send(
+    if (marker === 60) {
+      await (dwChannel as TextChannel).send(
         `▶ Deep Work 50 minutes sprint <@&${ROLES.deepWork50}>`
       );
     }
-  }
 
-  if (marker === 100) {
-    const dw100Channel = await guild.channels.fetch(CHANNELS.deepWork100Voice);
-    if (dw100Channel && dw100Channel.isTextBased()) {
-      await (dw100Channel as TextChannel).send(
+    if (marker === 100) {
+      await (dwChannel as TextChannel).send(
         `⏸ Deep Work timer paused (20 minutes break) <@&${ROLES.deepWork100}>`
       );
-    }
-    const dw50Channel = await guild.channels.fetch(CHANNELS.deepWork50Voice);
-    if (dw50Channel && dw50Channel.isTextBased()) {
-      await (dw50Channel as TextChannel).send(
+      await (dwChannel as TextChannel).send(
         `⏸ Deep Work timer paused (10 minutes break) <@&${ROLES.deepWork50}>`
       );
     }
